@@ -7,7 +7,7 @@
   - [Technologies](#technologies)
 
 ## Informacion General
-Practica 4: consiste en la realizacion de un juego de brick ball clasico realizado en assembly con la opcion de poder generar reportes
+Proyecto 2: consiste en la realizacion de un juego de brick ball clasico realizado en assembly con la opcion de poder generar reportes
 por ordenamientos burbuja, quicksort y marge sort, donde se generan graficas de los tops de los jugadores
 
 
