@@ -52,8 +52,8 @@ ENDM
 
 clean MACRO buffer, numBytes, character
 	          LOCAL cleanLoop
-	          mov   bx, 0
-	          mov   cx, 0
+	          xor   bx, bx
+	          xor   cx, cx
 	          mov   cx, numBytes
 	cleanLoop:
 	          mov   buffer[bx], character
@@ -139,6 +139,20 @@ dibujarBarraJuego MACRO pos, color
 	                  pop   cx
 	                  pop   dx
 ENDM 
+
+clearString MACRO buffer
+	            LOCAL      repeatClear
+	            SetData
+	            mov        si, 0
+	            mov        cx, 0
+	            mov        cx, SIZEOF buffer
+
+	repeatClear:
+	            mov        buffer[si], '$'
+	            inc        si
+	            LOOP       repeatClear
+	            RemoveData
+ENDM
 
 SetData MACRO
 	        PUSH AX

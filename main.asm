@@ -2,7 +2,7 @@ include  macros.asm
 include files.asm
 .model small 
 
-.stack
+.stack 100h
 
 .data
 	;********************************************************************* INTERFAZ *****************************************************************
@@ -12,7 +12,8 @@ include files.asm
 	messageOptionStart db '*  1) INGRESAR                                         *', 0aH, 0dH, '*  2) REGISTRAR                                        *', 0ah, 0dh, '*  3) SALIR                                            *', 0ah, 0dh, '*                                                      *', 0ah, 0dh, '*  :\> SELECT A OPTION: ','$'
 	messageOptionEnd   db '                              *', 0ah, 0dh,'========================================================', 0ah, 0dh, '$'
 	messageJoker       db 'Sale En vacas',0ah,0dh,'$'
-	messageUser        db 0ah,0dh,0ah,0ah,'======================== LOGIN =========================',0ah,0ah,0dh,'>>NICKNAME: ','$'
+	messageLogin       db 0ah,0dh,0ah,0ah,'======================== LOGIN =========================',0ah,0ah,0dh,'>>NICKNAME: ','$'
+	messageRegistro    db 0ah,0dh,0ah,0ah,'======================== REGISTRO ======================',0ah,0ah,0dh,'>>NICKNAME: ','$'
 	messagePassword    db 0ah,0dh,'>>PASSWORD: ','$'
 	messageEnd         db 0ah,0dh,'$'
 	messageErrorOpen   db 0ah, 0dh, '  ERROR: Not is possible open this file', '$'
@@ -22,15 +23,15 @@ include files.asm
 	messageErrorRead   db 0ah, 0dh, '  ERROR: Not is possible read the file', '$'
 	messageErrorClose  db 0ah, 0dh, '  ERROR: Not is possible close the file', '$'
 	messageSuccessPath db 0ah, 0dh, '  File read successfully :)',0ah,0dh, '$'
-	messagePivote db 0ah, 0dh, 'entro aqui', 0ah,0dh, '$'
-    ;*********************************************************************** END INTERFAZ ************************************************************
+	messagePivote      db 0ah, 0dh, 'entro aqui', 0ah,0dh, '$'
+	;*********************************************************************** END INTERFAZ ************************************************************
 	;*********************************************************************** Declaracion y Asignacion de Variables ******************************************
-	nicknames              db 7 dup('$')
+	nicknames          db 7 dup('$')
 	password           db 5 dup('$')
 	ubicacionJugadores db 16 dup('$')
-	contentFile        dw ?
+	handleFile         dw ?
 	players            db 300 dup('$')
-    info db 8 dup('$')
+	info               db 8 dup('$')
     ;*********************************************************************** END Declaracion ******************************************************************
 .code
 	;procedimiento donde va ir el menu de inicio y sus acciones para que empiece el juego uwu
@@ -55,8 +56,7 @@ main PROC
 	                             call       login
 	                             jmp        MenuGame
 	Op2:                         
-	                             printArray messageUser
-	                             printArray messagePassword
+	                             call       registro
 	                             jmp        MenuGame
 	Exit:                        
 	                             mov        ah,4ch
@@ -68,19 +68,17 @@ main ENDP
 
 	;procedimiento para el login xd
 login PROC
-	                             printArray messageUser
+	                             printArray messageLogin
 	                             getLinea   nicknames
 	                             printArray messagePassword
 	                             getLinea   password
 	                             clean      ubicacionJugadores, SIZEOF ubicacionJugadores, 24h
-	                             call       LoadUsers
-	                             clean      contentFile, SIZEOF contentFile, 24h
-	                             openFile   ubicacionJugadores, contentFile
-	                             readFile   players, contentFile, SIZEOF players
-	                             ;printArray messageEnd
-	                             ;printArray players
-	                             ;printArray nicknames
-	                             closeFile  contentFile
+	                             clean      players, SIZEOF players, 24h
+	                             call LoadUsers
+	                             clean      handleFile, SIZEOF handleFile, 24h
+	                             openFile   ubicacionJugadores, handleFile
+	                             readFile   players, handleFile, SIZEOF players
+	                             closeFile  handleFile
 	                             xor        si, si
 	SearchingLoop:               
 	                             push       si
@@ -103,7 +101,7 @@ login PROC
 	                             je         NicknameVerificationSuccess
 	                             jmp        EndSearchingLoop
 	NicknameVerificationSuccess: 
-                                 printArray messagePivote
+	                             printArray messagePivote
 	                             inc        si
 	                             xor        di, di
 	                             xor        cx, cx
@@ -161,32 +159,32 @@ login PROC
 	                             printArray messageJoker
 	                             jmp        EndLogin
 	NotAdmin:                    
-	        clean info, SIZEOF info, 24h
-            mov bl, nicknames[0]
-            mov info[0], bl
-            mov bl, nicknames[1]
-            mov info[1], bl
-            mov bl, nicknames[2]
-            mov info[2], bl
-            mov bl, nicknames[3]
-            mov info[3], bl
-            mov bl, nicknames[4]
-            mov info[4], bl
-            mov bl, nicknames[5]
-            mov info[5], bl
-            mov bl, nicknames[6]
-            mov info[6], bl
-            mov info[7], 24h
-            ;push ds
-            ;mov ah, 02h 
-            ;mov bh, 0
-            ;mov dh, 1
-            ;mov dl, 5
-            ;int 10h
-            printArray info
-            jmp EndLogin
+	                             clean      info, SIZEOF info, 24h
+	                             mov        bl, nicknames[0]
+	                             mov        info[0], bl
+	                             mov        bl, nicknames[1]
+	                             mov        info[1], bl
+	                             mov        bl, nicknames[2]
+	                             mov        info[2], bl
+	                             mov        bl, nicknames[3]
+	                             mov        info[3], bl
+	                             mov        bl, nicknames[4]
+	                             mov        info[4], bl
+	                             mov        bl, nicknames[5]
+	                             mov        info[5], bl
+	                             mov        bl, nicknames[6]
+	                             mov        info[6], bl
+	                             mov        info[7], 24h
+	;push ds
+	;mov ah, 02h
+	;mov bh, 0
+	;mov dh, 1
+	;mov dl, 5
+	;int 10h
+	                             printArray info
+	                             jmp        EndLogin
 	EndSearchingLoop:            
-                               ; printArray messageSuccessPath
+	; printArray messageSuccessPath
 	                             pop        si
 	                             add        si, 14
 	                             cmp        si, 300
@@ -194,6 +192,67 @@ login PROC
 	EndLogin:                    
 	                             ret
 login ENDP
+
+	;proc utilizado para realiza el registro de usuarios
+registro PROC
+	                             printArray messageRegistro
+	                             clean      nicknames, SIZEOF nicknames, 24h
+	                             getLinea   nicknames
+	                             printArray messagePassword
+	                             clean      password, SIZEOF password, 24h
+	                             getLinea   password
+	                             clean      ubicacionJugadores, SIZEOF ubicacionJugadores, 24h
+	                             call       LoadUsers
+	                             clean      handleFile, SIZEOF handleFile, 24h
+								 clean      players, SIZEOF players, 24h
+	                             openFile   ubicacionJugadores, handleFile
+	                             readFile   players, handleFile, SIZEOF players
+						
+	                             xor        si, si
+	NuevoJugador:                
+	                             mov        bl, players[si]
+	                             inc        si
+	                             cmp        bl, 2fh
+	                             jne        NuevoJugador
+	                             dec        si
+	                             mov        players[si], 3bh
+	                             inc        si
+	                             xor        di, di
+	NuevoUser:                   
+	                             mov        bl, nicknames[di]
+	                             mov        bh, bl
+	                             mov        players[si], bh
+	                             inc        si
+	                             inc        di
+	                             cmp        di, 7
+	                             jne        NuevoUser
+	NuevoUserContinue:           
+	                             mov        players[si], 2ch
+	                             inc        si
+	                             xor        di,di
+	AddPassword:                 
+	                             mov        bl, password[di]
+	                             mov        bh, bl
+	                             mov        players[si], bh
+	                             inc        si
+	                             inc        di
+	                             cmp        di, 5
+	                             jne        AddPassword
+	AddPasswordContinue:         
+	                             mov        players[si], 2fh
+	                             printArray messageEnd
+	                             closeFile  handleFile
+	                             clean      handleFile, SIZEOF handleFile, 24h
+	                             clean      ubicacionJugadores, SIZEOF ubicacionJugadores, 24h
+	                             call       LoadUsers
+
+								 deleteFile ubicacionJugadores
+	                             createFile ubicacionJugadores, handleFile
+								 openFile  ubicacionJugadores, handleFile
+	                             writeFile  handleFile, SIZEOF players, players
+	                             closeFile  handleFile
+	                             ret
+registro ENDP
 
 	;procedimiento para la carga de los archivos
 LoadUsers PROC
@@ -207,12 +266,8 @@ LoadUsers PROC
 	                             mov        ubicacionJugadores[7], 2eh                        	;.
 	                             mov        ubicacionJugadores[8], 74h                        	;t
 	                             mov        ubicacionJugadores[9], 78h                        	;x
-	                             mov        ubicacionJugadores[10], 74h                       	;t
-	                             mov        ubicacionJugadores[11], 0                         	;t
-	                             mov        ubicacionJugadores[12], 0                         	;x
-	                             mov        ubicacionJugadores[13], 0                         	;t
-	                             mov        ubicacionJugadores[14], 0                         	;null
-	;ubicacionJugadores[15] -> $
+	                             mov        ubicacionJugadores[10], 74h
+	                             mov        ubicacionJugadores[11], 00h                       	;t
 	                             ret
 LoadUsers ENDP
 
