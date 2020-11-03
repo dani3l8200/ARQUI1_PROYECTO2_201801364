@@ -80,7 +80,7 @@ delay MACRO constant
 	         POP   di
 	         POP   si
 ENDM
-
+;drawBall
 pintaBolita MACRO pos, color
 	            push dx
 	            mov  di, pos
@@ -96,7 +96,7 @@ pintaBolita MACRO pos, color
 	            mov  es:[di+642], dl
 	            pop  dx
 ENDM
-
+;drawBlockedededededeb2
 dibujarBloques MACRO pos, color
 	               LOCAL whileBlock
 	               PUSH  dx
@@ -119,7 +119,7 @@ dibujarBloques MACRO pos, color
 	               pop   cx
 	               pop   dx
 ENDM
-
+;drawBar
 dibujarBarraJuego MACRO pos, color
 	                  LOCAL whileBar
 	                  push  dx
