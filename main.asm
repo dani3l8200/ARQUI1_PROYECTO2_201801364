@@ -6,47 +6,48 @@ include files.asm
 
 .data
 	;********************************************************************* INTERFAZ *****************************************************************
-	margenStart        db '========================================================', 0aH, 0dH, '$'
-	messageWelcome     db '*  UNIVERSIDAD DE SAN CARLOS DE GUATEMALA              *', 0aH, 0dH, '*  FACULTAD DE INGENIERIA                              *', 0aH, 0dH, '*  CIENCIAS Y SISTEMAS                                 *', 0aH, 0dH, '*  ARQUITECTURA DE COMPUTADORES Y EMSAMBLADORES 1      *', 0aH, 0dH, '*  NOMBRE: JUAN DANIEL ENRIQUE ROMAN BARRIENTOS        *', 0aH, 0dH, '*  CARNET: 201801364                                   *', 0aH, 0dH,  '$'
-	margenEnd          db '*  SECCION: A                                          *', 0aH,  0dH, '*                      PROYECTO 2                      *', 0aH, 0dH, '********************************************************', 0aH , 0dH, '$'
-	messageOptionStart db '*  1) INGRESAR                                         *', 0aH, 0dH, '*  2) REGISTRAR                                        *', 0ah, 0dh, '*  3) SALIR                                            *', 0ah, 0dh, '*                                                      *', 0ah, 0dh, '*  :\> SELECT A OPTION: ','$'
-	messageOptionEnd   db '                              *', 0ah, 0dh,'========================================================', 0ah, 0dh, '$'
-	messageJoker       db 'Sale En vacas',0ah,0dh,'$'
-	messageLogin       db 0ah,0dh,0ah,0ah,'======================== LOGIN =========================',0ah,0ah,0dh,'>>NICKNAME: ','$'
-	messageRegistro    db 0ah,0dh,0ah,0ah,'======================== REGISTRO ======================',0ah,0ah,0dh,'>>NICKNAME: ','$'
-	messagePassword    db 0ah,0dh,'>>PASSWORD: ','$'
-	messageEnd         db 0ah,0dh,'$'
-	messageErrorOpen   db 0ah, 0dh, '  ERROR: Not is possible open this file', '$'
-	messageErrorCreate db 0ah, 0dh, '  ERROR: Not is possible create the file', '$'
-	messageErrorWrite  db 0ah, 0dh, '   ERROR: Not is possible write in the file', '$'
-	messageErrorDelete db 0ah, 0dh, '  ERROR: Not is possible delete the file', '$'
-	messageErrorRead   db 0ah, 0dh, '  ERROR: Not is possible read the file', '$'
-	messageErrorClose  db 0ah, 0dh, '  ERROR: Not is possible close the file', '$'
-	messageSuccessPath db 0ah, 0dh, '  File read successfully :)',0ah,0dh, '$'
-	messagePivote      db 0ah, 0dh, 'entro aqui', 0ah,0dh, '$'
+	margenStart             db '========================================================', 0aH, 0dH, '$'
+	messageWelcome          db '*  UNIVERSIDAD DE SAN CARLOS DE GUATEMALA              *', 0aH, 0dH, '*  FACULTAD DE INGENIERIA                              *', 0aH, 0dH, '*  CIENCIAS Y SISTEMAS                                 *', 0aH, 0dH, '*  ARQUITECTURA DE COMPUTADORES Y EMSAMBLADORES 1      *', 0aH, 0dH, '*  NOMBRE: JUAN DANIEL ENRIQUE ROMAN BARRIENTOS        *', 0aH, 0dH, '*  CARNET: 201801364                                   *', 0aH, 0dH,  '$'
+	margenEnd               db '*  SECCION: A                                          *', 0aH,  0dH, '*                      PROYECTO 2                      *', 0aH, 0dH, '********************************************************', 0aH , 0dH, '$'
+	messageOptionStart      db '*  1) INGRESAR                                         *', 0aH, 0dH, '*  2) REGISTRAR                                        *', 0ah, 0dh, '*  3) SALIR                                            *', 0ah, 0dh, '*                                                      *', 0ah, 0dh, '*  :\> SELECT A OPTION: ','$'
+	messageOptionEnd        db '                              *', 0ah, 0dh,'========================================================', 0ah, 0dh, '$'
+	messageJoker            db 'Sale En vacas',0ah,0dh,'$'
+	messageLogin            db 0ah,0dh,0ah,0ah,'======================== LOGIN =========================',0ah,0ah,0dh,'>>NICKNAME: ','$'
+	messageRegistro         db 0ah,0dh,0ah,0ah,'======================== REGISTRO ======================',0ah,0ah,0dh,'>>NICKNAME: ','$'
+	messagePassword         db 0ah,0dh,'>>PASSWORD: ','$'
+	messageEnd              db 0ah,0dh,'$'
+	messageErrorOpen        db 0ah, 0dh, '  ERROR: Not is possible open this file', '$'
+	messageErrorCreate      db 0ah, 0dh, '  ERROR: Not is possible create the file', '$'
+	messageErrorWrite       db 0ah, 0dh, '   ERROR: Not is possible write in the file', '$'
+	messageErrorDelete      db 0ah, 0dh, '  ERROR: Not is possible delete the file', '$'
+	messageErrorRead        db 0ah, 0dh, '  ERROR: Not is possible read the file', '$'
+	messageErrorClose       db 0ah, 0dh, '  ERROR: Not is possible close the file', '$'
+	messageSuccessPath      db 0ah, 0dh, '  File read successfully :)',0ah,0dh, '$'
+	messagePivote           db 0ah, 0dh, 'entro aqui', 0ah,0dh, '$'
 	;*********************************************************************** END INTERFAZ ************************************************************
 	;*********************************************************************** Declaracion y Asignacion de Variables ******************************************
-	nicknames          db 7 dup('$')
-	password           db 5 dup('$')
-	ubicacionJugadores db 16 dup('$')
-	handleFile         dw ?
-	currentTime        dw 0
-	time               dw 0
-	terceraBall        dw 0
-	segundaBall        dw 0
-	primeraBall        dw 0
-	currentLevel       db 0
-	finalScore         db 0
-	finalTime          db 0
-	delayGamePlay      db 0
-	primerCuadrante    db 0
-	segundoCuadrante   db 0
-	tercerCuadrante    db 0
-	swapBall           db 0
-	players            db 300 dup('$')
-	info               db 8 dup('$')
-	levelone           db 12 dup('$')
-	startLevel         db 0
+	nicknames               db 7 dup('$')
+	password                db 5 dup('$')
+	ubicacionJugadores      db 16 dup('$')
+	handleFile              dw ?
+	currentTime             dw 0
+	time                    dw 0
+	terceraBall             dw 0
+	segundaBall             dw 0
+	primeraBall             dw 0
+	currentLevel            db 0
+	finalScore              db 0
+	finalTime               db 0
+	delayGamePlay           db 0
+	primerCuadrante         db 0
+	segundoCuadrante        db 0
+	tercerCuadrante         db 0
+	swapBall                db 0
+	players                 db 300 dup('$')
+	info                    db 8 dup('$')
+	levelone                db 12 dup('$')
+	ubicacionRankingArchivo db 16 dup('$')
+	startLevel              db 0
     ;*********************************************************************** END Declaracion ******************************************************************
 .code
 	;procedimiento donde va ir el menu de inicio y sus acciones para que empiece el juego uwu
@@ -332,6 +333,67 @@ dibujarMargen PROC
 	                                ret
 dibujarMargen ENDP
 
+	;proc para realizar los tops de puntos y tiempo
+addResume PROC
+	                                clean             ubicacionRankingArchivo, SIZEOF ubicacionRankingArchivo, 24h
+	                                call              LoadPathTop
+	                                clean             handleFile, SIZEOF handleFile, 24h
+	                                openFile          ubicacionRankingArchivo, handleFile
+	                                readFile          players, handleFile, SIZEOF players
+	                                xor               si, si
+	AddNewResume:                   
+	                                mov               al, players[si]
+	                                inc               si
+	                                cmp               al, 47
+	                                jne               AddNewResume
+	                                dec               si
+	                                mov               players[si], 59
+	                                inc               si
+	                                xor               di, di
+	AddUsersNameResume:             
+	                                mov               al, info[di]
+	                                mov               players[si], al
+	                                inc               si
+	                                inc               di
+	                                cmp               di, 5
+	                                jne               AddUsersNameResume
+	                                mov               players[si], 44
+	                                inc               si
+	                                mov               al, currentLevel
+	                                mov               players[si], al
+	                                inc               si
+	                                mov               players[si], 44
+	                                inc               si
+	                                xor               bx, bx
+	                                mov               bl, finalTime
+	                                call              showNumber
+	                                mov               players[si], dh
+	                                inc               si
+	                                mov               players[si], cl
+	                                inc               si
+	                                mov               players[si], ch
+	                                inc               si
+	                                mov               players[si], 44
+	                                inc               si
+	                                xor               bx, bx
+	                                mov               bl, finalScore
+	                                call              showNumber
+	                                mov               players[si], dh
+	                                inc               si
+	                                mov               players[si], cl
+	                                inc               si
+	                                mov               players[si], ch
+	                                inc               si
+	                                mov               players[si], 47
+	                                closeFile         handleFile
+	                                clean             handleFile, SIZEOF handleFile, 24h
+	                                clean             ubicacionRankingArchivo, SIZEOF ubicacionRankingArchivo, 24h
+	                                call              LoadPathTop
+	                                createFile        ubicacionRankingArchivo, handleFile
+	                                writeFile         handleFile, SIZEOF players, players
+	                                closeFile         handleFile
+	                                ret
+addResume ENDP
 
 	;proc para empezar el juego en modo grafico
 inciarJuego1 PROC
@@ -1250,6 +1312,15 @@ inciarJuego1 PROC
 	                                ret
 inciarJuego1 ENDP
 
+	;proc para inciar con el nivel 2 del juego
+inciarJuego2 PROC
+	
+inciarJuego2 ENDP
+
+	;proc para inicial con el nivel 3 del juego
+inciarJuego3 PROC
+	
+inciarJuego3 ENDP
 	;proc para mostar el punteo del juego
 showNumber PROC
 	                                cmp               bx, 10
@@ -1316,20 +1387,31 @@ modoTexto PROC
 	                                ret
 modoTexto ENDP
 
+	;proc para cargar la ubicacion donde se encontrara el archivo top xd
+LoadPathTop PROC
+	                                mov               ubicacionRankingArchivo[0], 74h
+	                                mov               ubicacionRankingArchivo[1], 6fh
+	                                mov               ubicacionRankingArchivo[2], 70h
+	                                mov               ubicacionRankingArchivo[3], 2eh
+	                                mov               ubicacionRankingArchivo[4], 74h
+	                                mov               ubicacionRankingArchivo[5], 78h
+	                                mov               ubicacionRankingArchivo[6], 74h
+LoadPathTop ENDP
+
 	;procedimiento para la carga de los archivos
 LoadUsers PROC
-	                                mov               ubicacionJugadores[0], 70h                        	;p
-	                                mov               ubicacionJugadores[1], 6ch                        	;l
-	                                mov               ubicacionJugadores[2], 61h                        	;a
-	                                mov               ubicacionJugadores[3], 79h                        	;y
-	                                mov               ubicacionJugadores[4], 65h                        	;e
-	                                mov               ubicacionJugadores[5], 72h                        	;r
-	                                mov               ubicacionJugadores[6], 73h                        	;s
-	                                mov               ubicacionJugadores[7], 2eh                        	;.
-	                                mov               ubicacionJugadores[8], 74h                        	;t
-	                                mov               ubicacionJugadores[9], 78h                        	;x
+	                                mov               ubicacionJugadores[0], 70h                                  	;p
+	                                mov               ubicacionJugadores[1], 6ch                                  	;l
+	                                mov               ubicacionJugadores[2], 61h                                  	;a
+	                                mov               ubicacionJugadores[3], 79h                                  	;y
+	                                mov               ubicacionJugadores[4], 65h                                  	;e
+	                                mov               ubicacionJugadores[5], 72h                                  	;r
+	                                mov               ubicacionJugadores[6], 73h                                  	;s
+	                                mov               ubicacionJugadores[7], 2eh                                  	;.
+	                                mov               ubicacionJugadores[8], 74h                                  	;t
+	                                mov               ubicacionJugadores[9], 78h                                  	;x
 	                                mov               ubicacionJugadores[10], 74h
-	                                mov               ubicacionJugadores[11], 00h                       	;t
+	                                mov               ubicacionJugadores[11], 00h                                 	;t
 	                                ret
 LoadUsers ENDP
 
