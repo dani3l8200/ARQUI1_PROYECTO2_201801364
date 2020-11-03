@@ -46,6 +46,7 @@ include files.asm
 	players                 db 300 dup('$')
 	info                    db 8 dup('$')
 	levelone                db 12 dup('$')
+	leveltwo                db 24 dup('$')
 	ubicacionRankingArchivo db 16 dup('$')
 	startLevel              db 0
     ;*********************************************************************** END Declaracion ******************************************************************
@@ -403,7 +404,7 @@ inciarJuego1 PROC
 	                                xor               bx, bx
 	                                xor               ax, ax
 	                                mov               ax, 59680
-	                                dibujarBarraJuego ax, 44
+	                                dibujarBarraJuego ax, 12
 	                                dibujarBloques    7367, 71
 	                                dibujarBloques    7417, 72
 	                                dibujarBloques    7467, 73
@@ -453,7 +454,7 @@ inciarJuego1 PROC
 	                                jge               Level1NoBarChanges
 	                                dibujarBarraJuego bx, 0
 	                                add               bx, 8
-	                                dibujarBarraJuego bx, 44
+	                                dibujarBarraJuego bx, 12
 	                                cmp               startLevel, 1
 	                                je                Level1NoBarChanges
 	                                pintaBolita       dx, 0
@@ -465,7 +466,7 @@ inciarJuego1 PROC
 	                                jle               Level1NoBarChanges
 	                                dibujarBarraJuego bx, 0
 	                                sub               bx, 8
-	                                dibujarBarraJuego bx, 44
+	                                dibujarBarraJuego bx, 12
 	                                cmp               startLevel, 1
 	                                je                Level1NoBarChanges
 	                                pintaBolita       dx, 0
@@ -1314,7 +1315,1278 @@ inciarJuego1 ENDP
 
 	;proc para inciar con el nivel 2 del juego
 inciarJuego2 PROC
-	
+	                                mov               dx, 58735
+	                                xor               cx, cx
+	                                mov               cx, currentTime
+	                                xor               bx, bx
+	                                xor               ax, ax
+	                                mov               ax, 59680
+	                                dibujarBarraJuego ax, 44
+	                                dibujarBloques    7367,71
+	                                dibujarBloques    7417,72
+	                                dibujarBloques    7467,73
+	                                dibujarBloques    7517,74
+	                                dibujarBloques    7567,75
+	                                dibujarBloques    7617,76
+	                                dibujarBloques    9927,76
+	                                dibujarBloques    9977,75
+	                                dibujarBloques    10027,74
+	                                dibujarBloques    10077,73
+	                                dibujarBloques    10127,72
+	                                dibujarBloques    10177,71
+	                                dibujarBloques    12487,43
+	                                dibujarBloques    12537,44
+	                                dibujarBloques    12587,45
+	                                dibujarBloques    12637,46
+	                                dibujarBloques    12687,47
+	                                dibujarBloques    12737,48
+	                                dibujarBloques    15047,48
+	                                dibujarBloques    15097,47
+	                                dibujarBloques    15147,46
+	                                dibujarBloques    15197,45
+	                                dibujarBloques    15247,44
+	                                dibujarBloques    15297,43
+	                                mov               leveltwo[0], 1
+	                                mov               leveltwo[1], 1
+	                                mov               leveltwo[2], 1
+	                                mov               leveltwo[3], 1
+	                                mov               leveltwo[4], 1
+	                                mov               leveltwo[5], 1
+	                                mov               leveltwo[6], 1
+	                                mov               leveltwo[7], 1
+	                                mov               leveltwo[8], 1
+	                                mov               leveltwo[9], 1
+	                                mov               leveltwo[10], 1
+	                                mov               leveltwo[11], 1
+	                                mov               leveltwo[12], 1
+	                                mov               leveltwo[13], 1
+	                                mov               leveltwo[14], 1
+	                                mov               leveltwo[15], 1
+	                                mov               leveltwo[16], 1
+	                                mov               leveltwo[17], 1
+	                                mov               leveltwo[18], 1
+	                                mov               leveltwo[19], 1
+	                                mov               leveltwo[20], 1
+	                                mov               leveltwo[21], 1
+	                                mov               leveltwo[22], 1
+	                                mov               leveltwo[23], 1
+	                                pintaBolita       dx, 40
+	                                mov               bl, 1
+	Level2Action:                   
+	                                cmp               segundaBall, 0
+	                                jne               Level2ActiveSegundaBall
+	                                jmp               Level2NoBallSwap
+	Level2ActiveSegundaBall:        
+	                                cmp               swapBall, 0
+	                                je                Level2FirstBallTurn
+	                                cmp               swapBall, 1
+	                                je                Level2SecondBallTurn
+	                                jmp               Level2NoBallSwap
+	Level2FirstBallTurn:            
+	                                mov               primeraBall, dx
+	                                mov               primerCuadrante, bl
+	                                mov               dx, segundaBall
+	                                mov               bl, segundoCuadrante
+	                                mov               swapBall, 1
+	                                jmp               Level2NoBallSwap
+	Level2SecondBallTurn:           
+	                                mov               segundaBall, dx
+	                                mov               segundoCuadrante, bl
+	                                mov               dx, primeraBall
+	                                mov               bl, primerCuadrante
+	                                mov               swapBall, 0
+	                                jmp               Level2NoBallSwap
+	Level2NoBallSwap:               
+	                                push              cx
+	                                push              bx
+	                                mov               bx, ax
+	                                mov               ah, 01h
+	                                int               16h
+	                                jz                Level2NoBarChanges
+	                                mov               ah, 00h
+	                                int               16h
+	                                cmp               ah, 4dh
+	                                je                Level2MoveBarToDerecha
+	                                cmp               ah, 4bh
+	                                je                Level2MoveBarToIzquierda
+	                                cmp               ah, 57
+	                                je                Level2Start
+	                                cmp               ah, 1
+	                                je                Level2Pause
+	                                jmp               Level2NoBarChanges
+	Level2MoveBarToDerecha:         
+	                                cmp               bx, 59800
+	                                jge               Level2NoBarChanges
+	                                dibujarBarraJuego bx, 0
+	                                add               bx, 8
+	                                dibujarBarraJuego bx, 44
+	                                cmp               startLevel, 1
+	                                je                Level2NoBarChanges
+	                                dibujarBarraJuego dx, 0
+	                                add               dx, 8
+	                                dibujarBarraJuego dx, 40
+	                                jmp               Level2NoBarChanges
+	Level2MoveBarToIzquierda:       
+	                                cmp               bx, 59530
+	                                jle               Level2NoBarChanges
+	                                dibujarBarraJuego bx, 0
+	                                sub               bx, 8
+	                                dibujarBarraJuego bx, 44
+	                                cmp               startLevel, 1
+	                                je                Level2NoBarChanges
+	                                dibujarBarraJuego dx, 0
+	                                sub               dx, 8
+	                                dibujarBarraJuego dx, 40
+	                                jmp               Level2NoBarChanges
+	Level2Start:                    
+	                                mov               startLevel, 1
+	                                jmp               Level2NoBarChanges
+	Level2Pause:                    
+	                                mov               ah, 01h
+	                                int               16h
+	                                jz                Level2Pause
+	                                mov               ah, 00h
+	                                int               16h
+	                                cmp               ah, 1
+	                                je                Level2NoBarChanges
+	                                cmp               ah, 57
+	                                je                Level2PauseExit
+	                                cmp               ah, 2
+	                                je                Level2GoToLevel1
+	                                cmp               ah, 3
+	                                je                Level2GoToLevel2
+	                                cmp               ah, 4
+	                                je                Level2GoToLevel3
+	                                jmp               Level2Pause
+	Level2PauseExit:                
+	                                pop               bx
+	                                pop               cx
+	                                mov               currentLevel, 50
+	                                mov               finalScore, ch
+	                                mov               finalTime, cl
+	                                call              addResume
+	                                mov               currentLevel, 0
+	                                mov               finalScore, 0
+	                                mov               finalTime, 0
+	                                jmp               Level2Finish
+	Level2GoToLevel1:               
+	                                pop               bx
+	                                pop               cx
+	                                mov               startLevel, 0
+	                                mov               time, 0
+	                                mov               currentTime, 0
+	                                mov               delayGamePlay, 0
+	                                mov               primerCuadrante, 0
+	                                mov               segundoCuadrante, 0
+	                                mov               tercerCuadrante, 0
+	                                mov               swapBall, 0
+	                                mov               terceraBall, 0
+	                                mov               segundaBall, 0
+	                                mov               primeraBall, 0
+	                                call              modoGrafico
+	                                push              ds
+	                                mov               ah, 02h
+	                                mov               bh, 0
+	                                mov               dh, 1
+	                                mov               dl, 5
+	                                int               10h
+	                                printArray        info
+	                                mov               ah, 02h
+	                                mov               bh, 0
+	                                mov               dh, 1
+	                                mov               dl, 14
+	                                int               10h
+	                                mov               ah, 0ah
+	                                mov               al, 76
+	                                mov               bh, 0
+	                                mov               cx, 1
+	                                int               10h
+	                                mov               ah, 02h
+	                                mov               bh, 0
+	                                mov               dh, 1
+	                                mov               dl, 15
+	                                int               10h
+	                                mov               ah, 0ah
+	                                mov               al, 49
+	                                mov               bh, 0
+	                                mov               cx, 1
+	                                int               10h
+	                                pop               ds
+	                                call              dibujarMargen
+	                                call              inciarJuego1
+	                                jmp               Level2CleanFinish
+	Level2GoToLevel2:               
+	                                pop               bx
+	                                pop               cx
+	                                mov               startLevel, 0
+	                                mov               time, 0
+	                                mov               currentTime, 0
+	                                mov               delayGamePlay, 130
+	                                mov               primerCuadrante, 0
+	                                mov               segundoCuadrante, 0
+	                                mov               tercerCuadrante, 0
+	                                mov               swapBall, 0
+	                                mov               terceraBall, 0
+	                                mov               segundaBall, 0
+	                                mov               primeraBall, 0
+	                                call              modoGrafico
+	                                push              ds
+	                                mov               ah, 02h
+	                                mov               bh, 0
+	                                mov               dh, 1
+	                                mov               dl, 5
+	                                int               10h
+	                                printArray        info
+	                                mov               ah, 02h
+	                                mov               bh, 0
+	                                mov               dh, 1
+	                                mov               dl, 14
+	                                int               10h
+	                                mov               ah, 0ah
+	                                mov               al, 76
+	                                mov               bh, 0
+	                                mov               cx, 1
+	                                int               10h
+	                                mov               ah, 02h
+	                                mov               bh, 0
+	                                mov               dh, 1
+	                                mov               dl, 15
+	                                int               10h
+	                                mov               ah, 0ah
+	                                mov               al, 50
+	                                mov               bh, 0
+	                                mov               cx, 1
+	                                int               10h
+	                                pop               ds
+	                                call              dibujarMargen
+	                                call              inciarJuego2
+	                                jmp               Level2CleanFinish
+	Level2GoToLevel3:               
+	                                pop               bx
+	                                pop               cx
+	                                mov               startLevel, 0
+	                                mov               time, 0
+	                                mov               currentTime, 0
+	                                mov               delayGamePlay, 120
+	                                mov               primerCuadrante, 0
+	                                mov               segundoCuadrante, 0
+	                                mov               tercerCuadrante, 0
+	                                mov               swapBall, 0
+	                                mov               terceraBall, 0
+	                                mov               segundaBall, 0
+	                                mov               primeraBall, 0
+	                                call              modoGrafico
+	                                push              ds
+	                                mov               ah, 02h
+	                                mov               bh, 0
+	                                mov               dh, 1
+	                                mov               dl, 4
+	                                int               10h
+	                                printArray        info
+	                                mov               ah, 02h
+	                                mov               bh, 0
+	                                mov               dh, 1
+	                                mov               dl, 14
+	                                int               10h
+	                                mov               ah, 0ah
+	                                mov               al, 76
+	                                mov               bh, 0
+	                                mov               cx, 1
+	                                int               10h
+	                                mov               ah, 02h
+	                                mov               bh, 0
+	                                mov               dh, 1
+	                                mov               dl, 15
+	                                int               10h
+	                                mov               ah, 0ah
+	                                mov               al, 51
+	                                mov               bh, 0
+	                                mov               cx, 1
+	                                int               10h
+	                                pop               ds
+	                                call              dibujarMargen
+	                                call              inciarJuego3
+	                                jmp               Level2CleanFinish
+	Level2NoBarChanges:             
+	                                mov               ax, bx
+	                                mov               cx, ax
+	                                pop               bx
+	                                push              ax
+	                                cmp               startLevel, 0
+	                                je                Level2EndAction
+	                                cmp               bl, 1
+	                                je                Level2Cuadrante1
+	                                cmp               bl, 2
+	                                je                Level2Cuadrante2
+	                                cmp               bl, 3
+	                                je                Level2Cuadrante3
+	                                cmp               bl, 4
+	                                je                Level2Cuadrante4
+	                                jmp               Level2EndAction
+	Level2Cuadrante1:               
+	                                pintaBolita       dx, 0
+	                                sub               dx, 319
+	                                pintaBolita       dx, 40
+	                                xor               ax, ax
+	                                mov               ax, 7047
+	Level2Cuadrante1Top:            
+	                                cmp               dx, ax
+	                                je                Level2Cuadrante1TopChange
+	                                inc               ax
+	                                cmp               ax, 7352
+	                                jne               Level2Cuadrante1
+	                                xor               ax, ax
+	                                mov               ax, 7351
+	Level2Cuadrante1Derecha:        
+	                                cmp               dx, ax
+	                                je                Level2Cuadrante1DerechaChange
+	                                add               ax, 320
+	                                cmp               ax, 60151
+	                                jne               Level2Cuadrante1Derecha
+	                                jmp               Level2EndAction
+	Level2Cuadrante1TopChange:      
+	                                pintaBolita       dx, 0
+	                                add               dx, 319
+	                                pintaBolita       dx, 40
+	                                mov               bl, 4
+	                                jmp               Level2EndAction
+	Level2Cuadrante1DerechaChange:  
+	                                pintaBolita       dx, 0
+	                                add               dx, 319
+	                                pintaBolita       dx, 40
+	                                mov               bl, 2
+	                                jmp               Level2EndAction
+	Level2Cuadrante2:               
+	                                pintaBolita       dx, 0
+	                                sub               dx, 321
+	                                pintaBolita       dx, 40
+	                                xor               ax, ax
+	                                mov               ax, 7047
+	Level2Cuadrante2Top:            
+	                                cmp               dx, ax
+	                                je                Level2Cuadrante2TopChange
+	                                inc               ax
+	                                cmp               ax, 7352
+	                                jne               Level2Cuadrante2Top
+	                                xor               ax, ax
+	                                mov               ax, 7047
+	Level2Cuadrante2Izquierda:      
+	                                cmp               dx, ax
+	                                je                Level2Cuadrante2IzquierdaChange
+	                                add               ax, 320
+	                                cmp               ax, 60167
+	                                jne               Level2Cuadrante2Izquierda
+	                                jmp               Level2EndAction
+	Level2Cuadrante2TopChange:      
+	                                pintaBolita       dx, 0
+	                                add               dx, 321
+	                                pintaBolita       dx, 40
+	                                mov               bl, 3
+	                                jmp               Level2EndAction
+	Level2Cuadrante2IzquierdaChange:
+	                                pintaBolita       dx, 0
+	                                add               dx, 321
+	                                pintaBolita       dx, 40
+	                                mov               bl, 1
+	                                jmp               Level2EndAction
+	Level2Cuadrante3:               
+	                                pintaBolita       dx, 0
+	                                add               dx, 319
+	                                pintaBolita       dx, 40
+	                                xor               ax, ax
+	                                mov               ax, 7047
+	Level2Cuadrante3Izquierda:      
+	                                cmp               dx, ax
+	                                je                Level2Cuadrante3IzquierdaChange
+	                                add               ax, 320
+	                                cmp               ax, 60167
+	                                jne               Level2Cuadrante3Izquierda
+	                                xor               ax, ax
+	                                mov               ax, cx
+	                                add               cx, 32
+	Level2Cuadrante3Bottom:         
+	                                cmp               dx, ax
+	                                je                Level2Cuadrante3BottomChange
+	                                inc               ax
+	                                cmp               ax, cx
+	                                jne               Level2Cuadrante3Bottom
+	                                xor               ax, ax
+	                                mov               ax, 60805
+	Level2Cuadrante3Lost:           
+	                                cmp               dx, ax
+	                                je                Level2Lost
+	                                inc               ax
+	                                cmp               ax, 61114
+	                                jne               Level2Cuadrante3Lost
+	                                jmp               Level2EndAction
+	Level2Cuadrante3BottomChange:   
+	                                pintaBolita       dx, 0
+	                                sub               dx, 319
+	                                pintaBolita       dx, 40
+	                                mov               bl, 2
+	                                jmp               Level2EndAction
+	Level2Cuadrante3IzquierdaChange:
+	                                pintaBolita       dx, 0
+	                                sub               dx, 319
+	                                pintaBolita       dx, 40
+	                                mov               bl, 4
+	                                jmp               Level2EndAction
+	Level2Cuadrante4:               
+	                                pintaBolita       dx, 0
+	                                add               dx, 321
+	                                pintaBolita       dx, 40
+	                                xor               ax, ax
+	                                mov               ax, 7351
+	Level2Cuadrante4Derecha:        
+	                                cmp               dx, ax
+	                                je                Level2Cuadrante4DerechaChange
+	                                add               ax, 320
+	                                cmp               ax, 60151
+	                                jne               Level2Cuadrante4Derecha
+	                                xor               ax, ax
+	                                mov               ax, cx
+	                                add               cx, 32
+	Level2Cuadrante4Bottom:         
+	                                cmp               dx, ax
+	                                je                Level2Cuadrante4BottomChange
+	                                inc               ax
+	                                cmp               ax, cx
+	                                jne               Level2Cuadrante4Bottom
+	                                xor               ax, ax
+	                                mov               ax, 60805
+	Level2Cuadrante4Lost:           
+	                                cmp               dx, ax
+	                                je                Level2Lost
+	                                inc               ax
+	                                cmp               ax, 61114
+	                                jne               Level2Cuadrante4Lost
+	                                jmp               Level2EndAction
+	Level2Cuadrante4BottomChange:   
+	                                pintaBolita       dx, 0
+	                                sub               dx, 321
+	                                pintaBolita       dx, 40
+	                                mov               bl, 1
+	                                jmp               Level2EndAction
+	Level2Cuadrante4DerechaChange:  
+	                                pintaBolita       dx, 0
+	                                sub               dx, 321
+	                                pintaBolita       dx, 40
+	                                mov               bl, 3
+	                                jmp               Level2EndAction
+	Level2EndAction:                
+	                                xor               ax, ax
+	                                mov               al, leveltwo[0]
+	                                cmp               al, 1
+	                                je                Level2Block1
+	Level2Block1NoDestroy:          
+	                                mov               al, leveltwo[1]
+	                                cmp               al, 1
+	                                je                Level2Block2
+	Level2Block2NoDestroy:          
+	                                mov               al, leveltwo[2]
+	                                cmp               al, 1
+	                                je                Level2Block3
+	Level2Block3NoDestroy:          
+	                                mov               al, leveltwo[3]
+	                                cmp               al, 1
+	                                je                Level2Block4
+	Level2Block4NoDestroy:          
+	                                mov               al, leveltwo[4]
+	                                cmp               al, 1
+	                                je                Level2Block5
+	Level2Block5NoDestroy:          
+	                                mov               al, leveltwo[5]
+	                                cmp               al, 1
+	                                je                Level2Block6
+	Level2Block6NoDestroy:          
+	                                mov               al, leveltwo[6]
+	                                cmp               al, 1
+	                                je                Level2Block7
+	Level2Block7NoDestroy:          
+	                                mov               al, leveltwo[7]
+	                                cmp               al, 1
+	                                je                Level2Block8
+	Level2Block8NoDestroy:          
+	                                mov               al, leveltwo[8]
+	                                cmp               al, 1
+	                                je                Level2Block9
+	Level2Block9NoDestroy:          
+	                                mov               al, leveltwo[9]
+	                                cmp               al, 1
+	                                je                Level2Block10
+	Level2Block10NoDestroy:         
+	                                mov               al, leveltwo[10]
+	                                cmp               al, 1
+	                                je                Level2Block11
+	Level2Block11NoDestroy:         
+	                                mov               al, leveltwo[11]
+	                                cmp               al, 1
+	                                je                Level2Block12
+	Level2Block12NoDestroy:         
+	                                mov               al, leveltwo[12]
+	                                cmp               al, 1
+	                                je                Level2Block13
+	Level2Block13NoDestroy:         
+	                                mov               al, leveltwo[13]
+	                                cmp               al, 1
+	                                je                Level2Block14
+	Level2Block14NoDestroy:         
+	                                mov               al, leveltwo[14]
+	                                cmp               al, 1
+	                                je                Level2Block15
+	Level2Block15NoDestroy:         
+	                                mov               al, leveltwo[15]
+	                                cmp               al, 1
+	                                je                Level2Block16
+	Level2Block16NoDestroy:         
+	                                mov               al, leveltwo[16]
+	                                cmp               al, 1
+	                                je                Level2Block17
+	Level2Block17NoDestroy:         
+	                                mov               al, leveltwo[17]
+	                                cmp               al, 1
+	                                je                Level2Block18
+	Level2Block18NoDestroy:         
+	                                mov               al, leveltwo[18]
+	                                cmp               al, 1
+	                                je                Level2Block19
+	Level2Block19NoDestroy:         
+	                                mov               al, leveltwo[19]
+	                                cmp               al, 1
+	                                je                Level2Block20
+	Level2Block20NoDestroy:         
+	                                mov               al, leveltwo[20]
+	                                cmp               al, 1
+	                                je                Level2Block21
+	Level2Block21NoDestroy:         
+	                                mov               al, leveltwo[21]
+	                                cmp               al, 1
+	                                je                Level2Block22
+	Level2Block22NoDestroy:         
+	                                mov               al, leveltwo[22]
+	                                cmp               al, 1
+	                                je                Level2Block23
+	Level2Block23NoDestroy:         
+	                                mov               al, leveltwo[23]
+	                                cmp               al, 1
+	                                je                Level2Block24
+	Level2Block24NoDestroy:         
+	                                jmp               Level2ContinueAction
+	Level2Block1:                   
+	                                xor               ax, ax
+	                                mov               ax, 8967
+	Level2Block1While:              
+	                                cmp               dx, ax
+	                                je                Level2Block1Destroy
+	                                inc               ax
+	                                cmp               ax, 9017
+	                                jne               Level2Block1While
+	                                jmp               Level2Block1Destroy
+	Level2Block1Destroy:            
+	                                dibujarBloques    7367, 0
+	                                mov               leveltwo[0], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block2:                   
+	                                xor               ax, ax
+	                                mov               ax, 9017
+	Level2Block2While:              
+	                                cmp               dx, ax
+	                                je                Level2Block2Destroy
+	                                inc               ax
+	                                cmp               ax, 9067
+	                                jne               Level2Block2While
+	                                jmp               Level2Block2NoDestroy
+	Level2Block2Destroy:            
+	                                dibujarBloques    7417, 0
+	                                mov               leveltwo[1], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block3:                   
+	                                xor               ax, ax
+	                                mov               ax, 9067
+	Level2Block3While:              
+	                                cmp               dx, ax
+	                                je                Level2Block3Destroy
+	                                inc               ax
+	                                cmp               ax, 9117
+	                                jne               Level2Block3While
+	                                jmp               Level2Block3NoDestroy
+	Level2Block3Destroy:            
+	                                dibujarBloques    7467, 0
+	                                mov               leveltwo[2], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block4:                   
+	                                xor               ax, ax
+	                                mov               ax, 9117
+	Level2Block4While:              
+	                                cmp               dx, ax
+	                                je                Level2Block4Destroy
+	                                inc               ax
+	                                cmp               ax, 9167
+	                                jne               Level2Block4While
+	                                jmp               Level2Block4NoDestroy
+	Level2Block4Destroy:            
+	                                dibujarBloques    7517, 0
+	                                mov               leveltwo[3], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block5:                   
+	                                xor               ax, ax
+	                                mov               ax, 9167
+	Level2Block5While:              
+	                                cmp               dx, ax
+	                                je                Level2Block5Destroy
+	                                inc               ax
+	                                cmp               ax, 9217
+	                                jne               Level2Block5While
+	                                jmp               Level2Block5NoDestroy
+	Level2Block5Destroy:            
+	                                dibujarBloques    7567, 0
+	                                mov               leveltwo[4], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block6:                   
+	                                xor               ax, ax
+	                                mov               ax, 9217
+	Level2Block6While:              
+	                                cmp               dx, ax
+	                                je                Level2Block6Destroy
+	                                inc               ax
+	                                cmp               ax, 9267
+	                                jne               Level2Block6While
+	                                jmp               Level2Block6NoDestroy
+	Level2Block6Destroy:            
+	                                dibujarBloques    7617, 0
+	                                mov               leveltwo[5], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block7:                   
+	                                xor               ax, ax
+	                                mov               ax, 11527
+	Level2Block7While:              
+	                                cmp               dx, ax
+	                                je                Level2Block7Destroy
+	                                inc               ax
+	                                cmp               ax, 11577
+	                                jne               Level2Block7While
+	                                jmp               Level2Block7NoDestroy
+	Level2Block7Destroy:            
+	                                dibujarBloques    9927, 0
+	                                mov               leveltwo[6], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block8:                   
+	                                xor               ax, ax
+	                                mov               ax, 11577
+	Level2Block8While:              
+	                                cmp               dx, ax
+	                                je                Level2Block8Destroy
+	                                inc               ax
+	                                cmp               ax, 11627
+	                                jne               Level2Block8While
+	                                jmp               Level2Block8NoDestroy
+	Level2Block8Destroy:            
+	                                dibujarBloques    9977, 0
+	                                mov               leveltwo[7], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block9:                   
+	                                xor               ax, ax
+	                                mov               ax, 11627
+	Level2Block9While:              
+	                                cmp               dx, ax
+	                                je                Level2Block9Destroy
+	                                inc               ax
+	                                cmp               ax, 11677
+	                                jne               Level2Block9While
+	                                jmp               Level2Block9NoDestroy
+	Level2Block9Destroy:            
+	                                dibujarBloques    10027, 0
+	                                mov               leveltwo[8], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block10:                  
+	                                xor               ax, ax
+	                                mov               ax, 11677
+	Level2Block10While:             
+	                                cmp               dx, ax
+	                                je                Level2Block10Destroy
+	                                inc               ax
+	                                cmp               ax, 11727
+	                                jne               Level2Block10While
+	                                jmp               Level2Block10NoDestroy
+	Level2Block10Destroy:           
+	                                dibujarBloques    10077, 0
+	                                mov               leveltwo[9], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block11:                  
+	                                xor               ax, ax
+	                                mov               ax, 11727
+	Level2Block11While:             
+	                                cmp               dx, ax
+	                                je                Level2Block11Destroy
+	                                inc               ax
+	                                cmp               ax, 11777
+	                                jne               Level2Block11While
+	                                jmp               Level2Block11NoDestroy
+	Level2Block11Destroy:           
+	                                dibujarBloques    10127, 0
+	                                mov               leveltwo[10], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block12:                  
+	                                xor               ax, ax
+	                                mov               ax, 11777
+	Level2Block12While:             
+	                                cmp               dx, ax
+	                                je                Level2Block12Destroy
+	                                inc               ax
+	                                cmp               ax, 11827
+	                                jne               Level2Block12While
+	                                jmp               Level2Block12NoDestroy
+	Level2Block12Destroy:           
+	                                dibujarBloques    10177, 0
+	                                mov               leveltwo[11], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block13:                  
+	                                xor               ax, ax
+	                                mov               ax, 14087
+	Level2Block13While:             
+	                                cmp               dx, ax
+	                                je                Level2Block13Destroy
+	                                inc               ax
+	                                cmp               ax, 14137
+	                                jne               Level2Block13While
+	                                jmp               Level2Block13NoDestroy
+	Level2Block13Destroy:           
+	                                dibujarBloques    12487, 0
+	                                mov               leveltwo[12], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block14:                  
+	                                xor               ax, ax
+	                                mov               ax, 14137
+	Level2Block14While:             
+	                                cmp               dx, ax
+	                                je                Level2Block14Destroy
+	                                inc               ax
+	                                cmp               ax, 14187
+	                                jne               Level2Block14While
+	                                jmp               Level2Block14NoDestroy
+	Level2Block14Destroy:           
+	                                dibujarBloques    12537, 0
+	                                mov               leveltwo[13], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block15:                  
+	                                xor               ax, ax
+	                                mov               ax, 14187
+	Level2Block15While:             
+	                                cmp               dx, ax
+	                                je                Level2Block15Destroy
+	                                inc               ax
+	                                cmp               ax, 14237
+	                                jne               Level2Block15While
+	                                jmp               Level2Block15NoDestroy
+	Level2Block15Destroy:           
+	                                dibujarBloques    12587,0
+	                                mov               leveltwo[14], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block16:                  
+	                                xor               ax, ax
+	                                mov               ax, 14237
+	Level2Block16While:             
+	                                cmp               dx, ax
+	                                je                Level2Block16Destroy
+	                                inc               ax
+	                                cmp               ax, 14287
+	                                jne               Level2Block16While
+	                                jmp               Level2Block16NoDestroy
+	Level2Block16Destroy:           
+	                                dibujarBloques    12637, 0
+	                                mov               leveltwo[15], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block17:                  
+	                                xor               ax, ax
+	                                mov               ax, 14287
+	Level2Block17While:             
+	                                cmp               dx, ax
+	                                je                Level2Block17Destroy
+	                                inc               ax
+	                                cmp               ax, 14337
+	                                jne               Level2Block17While
+	                                jmp               Level2Block17NoDestroy
+	Level2Block17Destroy:           
+	                                dibujarBloques    12687, 0
+	                                mov               leveltwo[16], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block18:                  
+	                                xor               ax, ax
+	                                mov               ax, 14337
+	Level2Block18While:             
+	                                cmp               dx, ax
+	                                je                Level2Block18Destroy
+	                                inc               ax
+	                                cmp               ax, 14387
+	                                jne               Level2Block18While
+	                                jmp               Level2Block18NoDestroy
+	Level2Block18Destroy:           
+	                                dibujarBloques    12737, 0
+	                                mov               leveltwo[17], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block19:                  
+	                                xor               ax, ax
+	                                mov               ax, 16647
+	Level2Block19While:             
+	                                cmp               dx, ax
+	                                je                Level2Block19Destroy
+	                                inc               ax
+	                                cmp               ax, 16697
+	                                jne               Level2Block19While
+	                                jmp               Level2Block19NoDestroy
+	Level2Block19Destroy:           
+	                                dibujarBloques    15047, 0
+	                                mov               leveltwo[18], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block20:                  
+	                                xor               ax, ax
+	                                mov               ax, 16697
+	Level2Block20While:             
+	                                cmp               dx, ax
+	                                je                Level2Block20Destroy
+	                                inc               ax
+	                                cmp               ax, 16747
+	                                jne               Level2Block20While
+	                                jmp               Level2Block20NoDestroy
+	Level2Block20Destroy:           
+	                                dibujarBloques    15097, 0
+	                                mov               leveltwo[19], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block21:                  
+	                                xor               ax, ax
+	                                mov               ax, 16747
+	Level2Block21While:             
+	                                cmp               dx, ax
+	                                je                Level2Block21Destroy
+	                                inc               ax
+	                                cmp               ax, 16797
+	                                jne               Level2Block21While
+	                                jmp               Level2Block21NoDestroy
+	Level2Block21Destroy:           
+	                                dibujarBloques    15147, 0
+	                                mov               leveltwo[20], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block22:                  
+	                                xor               ax, ax
+	                                mov               ax, 16797
+	Level2Block22While:             
+	                                cmp               dx, ax
+	                                je                Level2Block22Destroy
+	                                inc               ax
+	                                cmp               ax, 16847
+	                                jne               Level2Block22While
+	                                jmp               Level2Block22NoDestroy
+	Level2Block22Destroy:           
+	                                dibujarBloques    15197, 0
+	                                mov               leveltwo[21], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch,1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block23:                  
+	                                xor               ax, ax
+	                                mov               ax, 16847
+	Level2Block23While:             
+	                                cmp               dx, ax
+	                                je                Level2Block23Destroy
+	                                inc               ax
+	                                cmp               ax, 16897
+	                                jne               Level2Block23While
+	                                jmp               Level2Block23NoDestroy
+	Level2Block23Destroy:           
+	                                dibujarBloques    15247, 0
+	                                mov               leveltwo[22], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2Block24:                  
+	                                xor               ax, ax
+	                                mov               ax, 16897
+	Level2Block24While:             
+	                                cmp               dx, ax
+	                                je                Level2Block24Destroy
+	                                inc               ax
+	                                cmp               ax, 16947
+	                                jne               Level2Block24While
+	                                jmp               Level2Block24NoDestroy
+	Level2Block24Destroy:           
+	                                dibujarBloques    15297, 0
+	                                mov               leveltwo[23], 0
+	                                pop               ax
+	                                pop               cx
+	                                add               ch, 1
+	                                push              cx
+	                                push              ax
+	                                jmp               Level2BlockDestroy
+	Level2BlockDestroy:             
+	                                cmp               bl, 1
+	                                je                Level2BlockCuadrante1
+	                                cmp               bl,2
+	                                je                Level2BlockCuadrante2
+	                                cmp               bl,3
+	                                je                Level2BlockCuadrante3
+	                                cmp               bl, 4
+	                                je                Level2BlockCuadrante4
+	                                jmp               Level2ContinueAction
+	Level2BlockCuadrante1:          
+	                                mov               bl, 4
+	                                jmp               Level2ContinueAction
+	Level2BlockCuadrante2:          
+	                                mov               bl, 3
+	                                jmp               Level2ContinueAction
+	Level2BlockCuadrante3:          
+	                                mov               bl, 2
+	                                jmp               Level2ContinueAction
+	Level2BlockCuadrante4:          
+	                                mov               bl, 1
+	                                jmp               Level2ContinueAction
+	Level2ContinueAction:           
+	                                xor               ax, ax
+	                                mov               al, delayGamePlay
+	                                delay             ax
+	                                pop               ax
+	                                pop               cx
+	                                push              ax
+	                                push              bx
+	                                push              cx
+	                                push              dx
+	Level2UpdateScore:              
+	                                push              bx
+	                                xor               bx, bx
+	                                mov               bl, ch
+	                                call              showNumber
+	                                push              cx
+	                                mov               ah,02h
+	                                mov               bh,0
+	                                mov               dh,1
+	                                mov               dl,23
+	                                int               10h
+	                                pop               dx
+	                                push              dx
+	                                mov               ah,0ah
+	                                mov               al,dl
+	                                mov               bh,0
+	                                mov               cx,1
+	                                int               10h
+	                                mov               ah,02h
+	                                mov               bh,0
+	                                mov               dh,1
+	                                mov               dl,24
+	                                int               10h
+	                                pop               dx
+	                                mov               ah,0ah
+	                                mov               al,dh
+	                                mov               bh,0
+	                                mov               cx,1
+	                                int               10h
+	                                pop               bx
+	                                pop               dx
+	                                pop               cx
+	                                pop               bx
+	                                pop               ax
+	                                push              ax
+	                                push              dx
+	                                push              bx
+	                                mov               bx, cx
+	                                mov               ah, 2ch
+	                                int               21h
+	                                xor               ax, ax
+	                                mov               al, cl
+	                                mov               ch, 60
+	                                mul               ch
+	                                mov               dl, dh
+	                                mov               dh, 0
+	                                add               ax, dx
+	                                mov               dx, time
+	                                cmp               ax, dx
+	                                jg                Level2AddSegundo
+	                                jmp               Level2NotAddSegundo
+	Level2AddSegundo:               
+	                                mov               cx, bx
+	                                inc               cl
+	                                mov               time, ax
+	                                push              cx
+	                                xor               ax,ax
+	                                mov               al,cl
+	                                mov               bl,60
+	                                div               bl
+	                                push              ax
+	                                mov               ch,al
+	                                add               ch,30h
+	                                mov               ah,02h
+	                                mov               bh,0
+	                                mov               dh,1
+	                                mov               dl,30
+	                                int               10h
+	                                mov               ah,0ah
+	                                mov               al,ch
+	                                mov               bh,0
+	                                mov               cx,1
+	                                int               10h
+	                                mov               ah,02h
+	                                mov               bh,0
+	                                mov               dh,1
+	                                mov               dl,31
+	                                int               10h
+	                                mov               ah,0ah
+	                                mov               al,58
+	                                mov               bh,0
+	                                mov               cx,1
+	                                int               10h
+	                                pop               ax
+	                                mov               al,ah
+	                                mov               ah,0
+	                                mov               bx,ax
+	                                call              showNumber
+	                                push              cx
+	                                mov               ah,02h
+	                                mov               bh,0
+	                                mov               dh,1
+	                                mov               dl,32
+	                                int               10h
+	                                mov               ah,0ah
+	                                mov               al,cl
+	                                mov               bh,0
+	                                mov               cx,1
+	                                int               10h
+	                                pop               cx
+	                                mov               ah,02h
+	                                mov               bh,0
+	                                mov               dh,1
+	                                mov               dl,33
+	                                int               10h
+	                                mov               ah,0ah
+	                                mov               al,ch
+	                                mov               bh,0
+	                                mov               cx,1
+	                                int               10h
+	                                pop               cx
+	                                jmp               Level2AddSegundoContinue
+	Level2NotAddSegundo:            
+	                                mov               cx, bx
+	Level2AddSegundoContinue:       
+	                                pop               bx
+	                                pop               dx
+	                                pop               ax
+	                                cmp               ch, 24
+	                                push              bx
+	                                push              dx
+	                                push              cx
+	                                xor               cx, cx
+	Level2CountBlocks:              
+	                                xor               dx, dx
+	                                mov               dl, leveltwo[bx]
+	                                cmp               dl, 0
+	                                je                Level2CountBlocksAdd
+	                                jmp               Level2CountBlocksContinue
+	Level2CountBlocksAdd:           
+	                                inc               cx
+	Level2CountBlocksContinue:      
+	                                inc               bx
+	                                cmp               bx, 24
+	                                jne               Level2CountBlocks
+	                                cmp               cx, 12
+	                                je                Level2AddBall
+	                                cmp               cx, 23
+	                                je                Level2Win
+	                                jmp               Level2NotAddBall
+	Level2Win:                      
+	                                pop               cx
+	                                pop               dx
+	                                pop               bx
+	                                jmp               Level2EndNivel2
+	Level2AddBall:
+		cmp segundaBall, 0
+		jne Level2NotAddBall
+		mov segundoCuadrante, 1
+		mov segundaBall, 48160
+		mov delayGamePlay, 100
+	Level2NotAddBall:               
+	                                pop               cx
+	                                pop               dx
+	                                pop               bx
+	                                cmp               ch, 36
+	                                je                Level2EndNivel2
+	                                jmp               Level2Action
+	Level2EndNivel2:                
+	                                mov               currentTime, cx
+	                                call              modoTexto
+	                                call              modoGrafico
+	                                push              ds
+	                                mov               ah, 02h
+	                                mov               bh, 0
+	                                mov               dh, 1
+	                                mov               dl, 5
+	                                int               10h
+	                                printArray        info
+	                                mov               ah,02h
+	                                mov               bh,0
+	                                mov               dh,1
+	                                mov               dl,14
+	                                int               10h
+	                                mov               ah,0ah
+	                                mov               al,76
+	                                mov               bh,0
+	                                mov               cx,1
+	                                int               10h
+	                                mov               ah,02h
+	                                mov               bh,0
+	                                mov               dh,1
+	                                mov               dl,15
+	                                int               10h
+	                                mov               ah,0ah
+	                                mov               al,51
+	                                mov               bh,0
+	                                mov               cx,1
+	                                int               10h
+	                                pop               ds
+	                                mov               startLevel, 0
+	                                mov               startLevel, 0
+	                                mov               primerCuadrante, 0
+	                                mov               segundoCuadrante, 0
+	                                mov               tercerCuadrante, 0
+	                                mov               swapBall, 0
+	                                mov               segundaBall, 0
+	                                mov               primeraBall, 0
+	                                mov               terceraBall, 0
+	                                mov               delayGamePlay, 120
+	                                call              dibujarMargen
+	                                call              inciarJuego3
+	                                jmp               Level2Finish
+	Level2Lost:                     
+	                                pop               ax
+	                                pop               cx
+	                                mov               currentLevel, 50
+	                                mov               finalScore, ch
+	                                mov               finalTime, cl
+	                                call              addResume
+	                                mov               currentLevel, 0
+	                                mov               finalScore, 0
+	                                mov               finalTime, 0
+	Level2Finish:                   
+	Level2CleanFinish:              
+	                                mov               startLevel, 0
+	                                mov               time, 0
+	                                mov               currentTime, 0
+	                                mov               delayGamePlay, 0
+	                                mov               primerCuadrante, 0
+	                                mov               segundoCuadrante, 0
+	                                mov               tercerCuadrante, 0
+	                                mov               swapBall, 0
+	                                mov               terceraBall, 0
+	                                mov               segundaBall, 0
+	                                mov               primeraBall, 0
+	                                ret
 inciarJuego2 ENDP
 
 	;proc para inicial con el nivel 3 del juego
