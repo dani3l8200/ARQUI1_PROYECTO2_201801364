@@ -1198,7 +1198,7 @@ inciarJuego1 PROC
 	                                int               10h
 	                                mov               ah, 0ah
 	                                mov               al, 58
-	                                mov               bh, 00h
+	                                mov               bh, 0
 	                                mov               cx, 1
 	                                int               10h
 	                                pop               ax
@@ -1422,9 +1422,9 @@ inciarJuego2 PROC
 	                                dibujarBarraJuego bx, 44
 	                                cmp               startLevel, 1
 	                                je                Level2NoBarChanges
-	                                dibujarBarraJuego dx, 0
+	                                pintaBolita       dx, 0
 	                                add               dx, 8
-	                                dibujarBarraJuego dx, 40
+	                                pintaBolita       dx, 40
 	                                jmp               Level2NoBarChanges
 	Level2MoveBarToIzquierda:       
 	                                cmp               bx, 59530
@@ -1434,9 +1434,9 @@ inciarJuego2 PROC
 	                                dibujarBarraJuego bx, 44
 	                                cmp               startLevel, 1
 	                                je                Level2NoBarChanges
-	                                dibujarBarraJuego dx, 0
+	                                pintaBolita       dx, 0
 	                                sub               dx, 8
-	                                dibujarBarraJuego dx, 40
+	                                pintaBolita       dx, 40
 	                                jmp               Level2NoBarChanges
 	Level2Start:                    
 	                                mov               startLevel, 1
@@ -1580,7 +1580,7 @@ inciarJuego2 PROC
 	                                mov               ah, 02h
 	                                mov               bh, 0
 	                                mov               dh, 1
-	                                mov               dl, 4
+	                                mov               dl, 5
 	                                int               10h
 	                                printArray        info
 	                                mov               ah, 02h
@@ -1634,7 +1634,7 @@ inciarJuego2 PROC
 	                                je                Level2Cuadrante1TopChange
 	                                inc               ax
 	                                cmp               ax, 7352
-	                                jne               Level2Cuadrante1
+	                                jne               Level2Cuadrante1Top
 	                                xor               ax, ax
 	                                mov               ax, 7351
 	Level2Cuadrante1Derecha:        
@@ -1881,7 +1881,7 @@ inciarJuego2 PROC
 	                                inc               ax
 	                                cmp               ax, 9017
 	                                jne               Level2Block1While
-	                                jmp               Level2Block1Destroy
+	                                jmp               Level2Block1NoDestroy
 	Level2Block1Destroy:            
 	                                dibujarBloques    7367, 0
 	                                mov               leveltwo[0], 0
@@ -2505,12 +2505,12 @@ inciarJuego2 PROC
 	                                pop               dx
 	                                pop               bx
 	                                jmp               Level2EndNivel2
-	Level2AddBall:
-		cmp segundaBall, 0
-		jne Level2NotAddBall
-		mov segundoCuadrante, 1
-		mov segundaBall, 48160
-		mov delayGamePlay, 100
+	Level2AddBall:                  
+	                                cmp               segundaBall, 0
+	                                jne               Level2NotAddBall
+	                                mov               segundoCuadrante, 1
+	                                mov               segundaBall, 48160
+	                                mov               delayGamePlay, 100
 	Level2NotAddBall:               
 	                                pop               cx
 	                                pop               dx
