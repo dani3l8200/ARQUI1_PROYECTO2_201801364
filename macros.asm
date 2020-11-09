@@ -1,3 +1,4 @@
+;*********************************** Macros Utilidad ******************************
 printArray MACRO array
 	           LOCAL start
 	start:     
@@ -80,6 +81,10 @@ delay MACRO constant
 	         POP   di
 	         POP   si
 ENDM
+
+;******************************** END MACROS UTILIDAD ***************************
+
+;******************************** MACROS OBJETOS JUEGO *********************
 ;drawBall
 pintaBolita MACRO pos, color
 	            push dx
@@ -96,7 +101,7 @@ pintaBolita MACRO pos, color
 	            mov  es:[di+642], dl
 	            pop  dx
 ENDM
-;drawBlockedededededeb2
+;drawBlock
 dibujarBloques MACRO pos, color
 	               LOCAL whileBlock
 	               PUSH  dx
@@ -140,6 +145,10 @@ dibujarBarraJuego MACRO pos, color
 	                  pop   dx
 ENDM 
 
+;******************************** END MACROS OBJETOS JUEGO******************
+
+
+;******************************** Macros Obsoletas *************************
 clearString MACRO buffer
 	            LOCAL      repeatClear
 	            SetData
@@ -171,3 +180,4 @@ RemoveData MACRO
 	           POP BX
 	           POP AX
 ENDM
+;******************************** END Macros Obsoletas **********************

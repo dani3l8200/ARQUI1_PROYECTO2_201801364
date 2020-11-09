@@ -406,18 +406,18 @@ iniciarJuego1 PROC
 	                                xor               ax, ax
 	                                mov               ax, 59680
 	                                dibujarBarraJuego ax, 12
-	                                dibujarBloques    7367, 71
-	                                dibujarBloques    7417, 72
-	                                dibujarBloques    7467, 73
-	                                dibujarBloques    7517, 74
-	                                dibujarBloques    7567, 75
-	                                dibujarBloques    7617, 76
-	                                dibujarBloques    9927, 76
-	                                dibujarBloques    9977, 75
-	                                dibujarBloques    10027, 74
-	                                dibujarBloques    10077, 73
-	                                dibujarBloques    10127, 72
-	                                dibujarBloques    10177, 71
+	                                dibujarBloques    7367, 1
+	                                dibujarBloques    7417, 2
+	                                dibujarBloques    7467, 3
+	                                dibujarBloques    7517, 4
+	                                dibujarBloques    7567, 5
+	                                dibujarBloques    7617, 6
+	                                dibujarBloques    9927, 7
+	                                dibujarBloques    9977, 8
+	                                dibujarBloques    10027, 9
+	                                dibujarBloques    10077, 10
+	                                dibujarBloques    10127, 11
+	                                dibujarBloques    10177, 12
 	                                mov               levelone[0], 1
 	                                mov               levelone[1], 1
 	                                mov               levelone[2], 1
@@ -1175,59 +1175,59 @@ iniciarJuego1 PROC
 	                                inc               cl
 	                                mov               time, ax
 	                                push              cx
-	                                xor               ax, ax
-	                                mov               al, cl
-	                                mov               bl, 60
+	                                xor               ax,ax
+	                                mov               al,cl
+	                                mov               bl,60
 	                                div               bl
 	                                push              ax
-	                                mov               ch, al
-	                                add               ch, 30h
-	                                mov               ah, 02h
-	                                mov               bh, 0
-	                                mov               dh, 1
-	                                mov               dl, 30
+	                                mov               ch,al
+	                                add               ch,30h
+	                                mov               ah,02h
+	                                mov               bh,0
+	                                mov               dh,1
+	                                mov               dl,30
 	                                int               10h
-	                                mov               ah, 0ah
-	                                mov               al, ch
-	                                mov               bh, 0
-	                                mov               cx, 1
+	                                mov               ah,0ah
+	                                mov               al,ch
+	                                mov               bh,0
+	                                mov               cx,1
 	                                int               10h
-	                                mov               ah, 02h
-	                                mov               bh, 0
-	                                mov               dh, 1
-	                                mov               dl, 31
+	                                mov               ah,02h
+	                                mov               bh,0
+	                                mov               dh,1
+	                                mov               dl,31
 	                                int               10h
-	                                mov               ah, 0ah
-	                                mov               al, 58
-	                                mov               bh, 0
-	                                mov               cx, 1
+	                                mov               ah,0ah
+	                                mov               al,58
+	                                mov               bh,0
+	                                mov               cx,1
 	                                int               10h
 	                                pop               ax
-	                                mov               al, ah
-	                                mov               ah, 0
-	                                mov               bx, ax
+	                                mov               al,ah
+	                                mov               ah,0
+	                                mov               bx,ax
 	                                call              showNumber
 	                                push              cx
-	                                mov               ah, 02h
-	                                mov               bh, 0
-	                                mov               dh, 1
-	                                mov               dl, 32
+	                                mov               ah,02h
+	                                mov               bh,0
+	                                mov               dh,1
+	                                mov               dl,32
 	                                int               10h
-	                                mov               ah, 0ah
-	                                mov               al, cl
-	                                mov               bh, 0
-	                                mov               cx, 1
+	                                mov               ah,0ah
+	                                mov               al,cl
+	                                mov               bh,0
+	                                mov               cx,1
 	                                int               10h
 	                                pop               cx
-	                                mov               ah, 02h
-	                                mov               bh, 0
-	                                mov               dh, 1
-	                                mov               dl, 33
+	                                mov               ah,02h
+	                                mov               bh,0
+	                                mov               dh,1
+	                                mov               dl,33
 	                                int               10h
-	                                mov               ah, 0ah
-	                                mov               al, ch
-	                                mov               bh, 0
-	                                mov               cx, 1
+	                                mov               ah,0ah
+	                                mov               al,ch
+	                                mov               bh,0
+	                                mov               cx,1
 	                                int               10h
 	                                pop               cx
 	                                jmp               Level1AddSegundoContinue
@@ -1323,18 +1323,18 @@ iniciarJuego2 PROC
 	                                xor               ax, ax
 	                                mov               ax, 59680
 	                                dibujarBarraJuego ax, 44
-	                                dibujarBloques    7367,71
-	                                dibujarBloques    7417,72
-	                                dibujarBloques    7467,73
-	                                dibujarBloques    7517,74
-	                                dibujarBloques    7567,75
-	                                dibujarBloques    7617,76
-	                                dibujarBloques    9927,76
-	                                dibujarBloques    9977,75
-	                                dibujarBloques    10027,74
-	                                dibujarBloques    10077,73
-	                                dibujarBloques    10127,72
-	                                dibujarBloques    10177,71
+	                                dibujarBloques    7367,1
+	                                dibujarBloques    7417,2
+	                                dibujarBloques    7467,3
+	                                dibujarBloques    7517,4
+	                                dibujarBloques    7567,5
+	                                dibujarBloques    7617,6
+	                                dibujarBloques    9927,7
+	                                dibujarBloques    9977,8
+	                                dibujarBloques    10027,9
+	                                dibujarBloques    10077,10
+	                                dibujarBloques    10127,11
+	                                dibujarBloques    10177,12
 	                                dibujarBloques    12487,43
 	                                dibujarBloques    12537,44
 	                                dibujarBloques    12587,45
@@ -2560,7 +2560,7 @@ iniciarJuego2 PROC
 	                                mov               segundaBall, 0
 	                                mov               primeraBall, 0
 	                                mov               terceraBall, 0
-	                                mov               delayGamePlay, 120
+	                                mov               delayGamePlay, 130
 	                                call              dibujarMargen
 	                                call              iniciarJuego3
 	                                jmp               Level2Finish
@@ -2599,19 +2599,19 @@ iniciarJuego3 PROC
 	                                xor               ax, ax
 	                                mov               ax, 59680
 	                                dibujarBarraJuego ax, 44
-	                                dibujarBloques    7367,71
-	                                dibujarBloques    7417,72
-	                                dibujarBloques    7467,73
-	                                dibujarBloques    7517,74
-	                                dibujarBloques    7567,75
-	                                dibujarBloques    7617,76
-	                                dibujarBloques    9927,76
-	                                dibujarBloques    9977,75
-	                                dibujarBloques    10027,74
-	                                dibujarBloques    10077,73
-	                                dibujarBloques    10127,72
-	                                dibujarBloques    10177,71
-	                                dibujarBloques    12487,43
+	                                dibujarBloques    7367,1
+	                                dibujarBloques    7417,2
+	                                dibujarBloques    7467,3
+	                                dibujarBloques    7517,4
+	                                dibujarBloques    7567,5
+	                                dibujarBloques    7617,6
+	                                dibujarBloques    9927,7
+	                                dibujarBloques    9977,8
+	                                dibujarBloques    10027,9
+	                                dibujarBloques    10077,10
+	                                dibujarBloques    10127,11
+	                                dibujarBloques    10177,12
+	                                dibujarBloques    12487,75
 	                                dibujarBloques    12537,44
 	                                dibujarBloques    12587,45
 	                                dibujarBloques    12637,46
@@ -2623,18 +2623,18 @@ iniciarJuego3 PROC
 	                                dibujarBloques    15197,45
 	                                dibujarBloques    15247,44
 	                                dibujarBloques    15297,43
-	                                dibujarBloques    17607,71
-	                                dibujarBloques    17657,72
-	                                dibujarBloques    17707,73
-	                                dibujarBloques    17757,74
-	                                dibujarBloques    17807,75
-	                                dibujarBloques    17857,76
-	                                dibujarBloques    20167,76
-	                                dibujarBloques    20217,75
-	                                dibujarBloques    20267,74
-	                                dibujarBloques    20317,73
-	                                dibujarBloques    20367,72
-	                                dibujarBloques    20417,71
+	                                dibujarBloques    17607,13
+	                                dibujarBloques    17657,14
+	                                dibujarBloques    17707,15
+	                                dibujarBloques    17757,81
+	                                dibujarBloques    17807,82
+	                                dibujarBloques    17857,83
+	                                dibujarBloques    20167,52
+	                                dibujarBloques    20217,55
+	                                dibujarBloques    20267,56
+	                                dibujarBloques    20317,57
+	                                dibujarBloques    20367,58
+	                                dibujarBloques    20417,51
 	                                mov               levelthree[0], 1
 	                                mov               levelthree[1], 1
 	                                mov               levelthree[2], 1
@@ -2769,7 +2769,7 @@ iniciarJuego3 PROC
 	                                pintaBolita       dx, 0
 	                                sub               dx, 8
 	                                pintaBolita       dx, 40
-									jmp Level3NoBarChanges
+	                                jmp               Level3NoBarChanges
 	Level3Start:                    
 	                                mov               startLevel, 1
 	                                jmp               Level3NoBarChanges
@@ -2883,7 +2883,7 @@ iniciarJuego3 PROC
 	                                mov               bh, 0
 	                                mov               dh, 1
 	                                mov               dl, 15
-									int 10h
+	                                int               10h
 	                                mov               ah, 0ah
 	                                mov               al, 50
 	                                mov               bh, 0
