@@ -307,7 +307,7 @@ modoGrafico ENDP
 
 	;proc para dibujar el margen
 dibujarMargen PROC
-	                                mov               dl, 1
+	                                mov               dl, 119
 	                                mov               di, 6405
 	MargenSuperior:                 
 	                                mov               es:[di], dl
@@ -2769,6 +2769,7 @@ iniciarJuego3 PROC
 	                                pintaBolita       dx, 0
 	                                sub               dx, 8
 	                                pintaBolita       dx, 40
+									jmp Level3NoBarChanges
 	Level3Start:                    
 	                                mov               startLevel, 1
 	                                jmp               Level3NoBarChanges
@@ -2794,6 +2795,7 @@ iniciarJuego3 PROC
 	                                pop               cx
 	                                mov               currentLevel, 51
 	                                mov               finalScore, ch
+	                                mov               finalTime, cl
 	                                call              addResume
 	                                mov               currentLevel, 0
 	                                mov               finalScore, 0
@@ -2881,6 +2883,7 @@ iniciarJuego3 PROC
 	                                mov               bh, 0
 	                                mov               dh, 1
 	                                mov               dl, 15
+									int 10h
 	                                mov               ah, 0ah
 	                                mov               al, 50
 	                                mov               bh, 0
@@ -3975,28 +3978,28 @@ iniciarJuego3 PROC
 	                                mov               bl, ch
 	                                call              showNumber
 	                                push              cx
-	                                mov               ah, 02h
-	                                mov               bh, 0
-	                                mov               dh, 1
-	                                mov               dl, 23
+	                                mov               ah,02h
+	                                mov               bh,0
+	                                mov               dh,1
+	                                mov               dl,23
 	                                int               10h
 	                                pop               dx
 	                                push              dx
-	                                mov               ah, 0ah
-	                                mov               al, dl
-	                                mov               bh, 0
-	                                mov               cx, 1
+	                                mov               ah,0ah
+	                                mov               al,dl
+	                                mov               bh,0
+	                                mov               cx,1
 	                                int               10h
-	                                mov               ah, 02h
-	                                mov               bh, 0
-	                                mov               dh, 1
-	                                mov               dl, 24
+	                                mov               ah,02h
+	                                mov               bh,0
+	                                mov               dh,1
+	                                mov               dl,24
 	                                int               10h
 	                                pop               dx
-	                                mov               ah, 0ah
-	                                mov               al, dh
-	                                mov               bh, 0
-	                                mov               cx, 1
+	                                mov               ah,0ah
+	                                mov               al,dh
+	                                mov               bh,0
+	                                mov               cx,1
 	                                int               10h
 	                                pop               bx
 	                                pop               dx
@@ -4006,16 +4009,16 @@ iniciarJuego3 PROC
 	                                push              ax
 	                                push              dx
 	                                push              bx
-	                                mov               bx, cx
-	                                mov               ah, 2ch
+	                                mov               bx,cx
+	                                mov               ah,2ch
 	                                int               21h
-	                                xor               ax, ax
-	                                mov               al, cl
-	                                mov               ch, 60
+	                                xor               ax,ax
+	                                mov               al,cl
+	                                mov               ch,60
 	                                mul               ch
-	                                mov               dl, dh
-	                                mov               dh, 0
-	                                add               ax, dx
+	                                mov               dl,dh
+	                                mov               dh,0
+	                                add               ax,dx
 	                                mov               dx, time
 	                                cmp               ax, dx
 	                                jg                Level3AddSegundo
@@ -4025,17 +4028,17 @@ iniciarJuego3 PROC
 	                                inc               cl
 	                                mov               time, ax
 	                                push              cx
-	                                xor               ax, ax
-	                                mov               al, cl
-	                                mov               bl, 60
+	                                xor               ax,ax
+	                                mov               al,cl
+	                                mov               bl,60
 	                                div               bl
 	                                push              ax
-	                                mov               ch, al
-	                                add               ch, 30h
-	                                mov               ah, 02h
-	                                mov               bh, 0
-	                                mov               dh, 1
-	                                mov               dl, 30
+	                                mov               ch,al
+	                                add               ch,30h
+	                                mov               ah,02h
+	                                mov               bh,0
+	                                mov               dh,1
+	                                mov               dl,30
 	                                int               10h
 	                                mov               ah,0ah
 	                                mov               al,ch
