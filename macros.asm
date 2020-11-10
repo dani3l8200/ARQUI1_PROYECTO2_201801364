@@ -163,6 +163,22 @@ clearString MACRO buffer
 	            RemoveData
 ENDM
 
+lengthString16BITS MACRO buffer, incBuffer
+	                   LOCAL      While, endString
+	                   SetData
+	                   mov        si, 0           	;limpiamos el contador
+	While:             
+	                   mov        dh, buffer[si]  	;almacenamos en dh el caracter de la cadena a obtener la longitud
+	                   cmp        dh, '$'         	;verifica si dh ya tiene el $
+	                   je         endString       	; si lo tiene entonces pues terminamos de iterar el while xd
+	                   inc        si              	;incrementamos en caso de que aun no haya $
+	                   jmp        While           	;vuelve a iterar
+	endString:         
+	                   mov        incBuffer, si   	;almacenamos el size del si en incBuffer para indicar la longitud de la cadena
+	                   RemoveData
+
+ENDM
+
 SetData MACRO
 	        PUSH AX
 	        PUSH BX

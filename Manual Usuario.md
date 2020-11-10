@@ -5,7 +5,7 @@
   - [Juego](#juego)
   - [Nivel 2](#nivel-2)
   - [Nivel 3](#nivel-3)
-  - [Reportes](#reportes)
+  - [Panel Administrador](#panel-administrador)
 ## Inicio Menu
 Interfaz de Inicio donde al iniciar la aplicacion el usuario se le desplegara el siguiente menu
 
@@ -44,5 +44,13 @@ Una ganado el segundo nivel pasamos al tercero y ultimo, donde al destruir 12 bl
 
 ![Image Info](./images/8.PNG)
 
-## Reportes
-Pendiente 
+## Panel Administrador
+Al ingresar con el usuario adminAP y password 1234, les mostrara el siguiente menu y al ingresar cualquiera de las opciones les mostrar el reporte deseado ordenado con el metodo burbuja, ya no me dio tiempo de hacerlo con graficas xD
+
+![Image Info](./images/9.PNG)
+
+![Image Info](./images/10.PNG)
+
+![Image Info](./images/11.PNG)
+
+![Image Info](./images/12.PNG)
